@@ -95,6 +95,13 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.neuecc.unirx": {
+      "version": "https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6baeccf6c544c155497164327cca72f28163a578"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -348,6 +355,15 @@
         "com.unity.xr.management": "4.4.0"
       },
       "url": "https://packages.unity.com"
+    },
+    "me.mattak.unidux": {
+      "version": "https://github.com/mattak/Unidux.git?path=Assets/Plugins/Unidux/Scripts",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.neuecc.unirx": "7.1.0"
+      },
+      "hash": "b9a14f391e5907d40972d7a2d7f3102dcff416ca"
     },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
