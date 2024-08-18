@@ -16,6 +16,8 @@ public class MazeGenerator : MonoBehaviour {
     [SerializeField] private GameObject GoalPrefab = null;
     [SerializeField] private GameObject FinishPrefab = null;
 
+    [SerializeField] private ColorsGenerator colorsGenerator;
+
     private BasicMazeGenerator mMazeGenerator = null;
 
     private List<GameObject> walls = new List<GameObject>();
@@ -31,6 +33,8 @@ public class MazeGenerator : MonoBehaviour {
         mMazeGenerator.GenerateMaze();
 
         InstantiateGameObjectsInMaze();
+
+        colorsGenerator.CalculateBaseColor();
 
         GPUInstancingWalls();
         GPUInstancingFloors();
@@ -124,10 +128,8 @@ public class MazeGenerator : MonoBehaviour {
 
         foreach (GameObject obj in walls)
         {
-            float r = Random.Range(0.0f, 1.0f);
-            float g = Random.Range(0.0f, 1.0f);
-            float b = Random.Range(0.0f, 1.0f);
-            props.SetColor("_Color", new Color(r, g, b));
+            Color color = colorsGenerator.GetNextColorForColorScheme();
+            props.SetColor("_BaseColor", color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
@@ -141,10 +143,8 @@ public class MazeGenerator : MonoBehaviour {
 
         foreach (GameObject obj in floors)
         {
-            float r = Random.Range(0.0f, 1.0f);
-            float g = Random.Range(0.0f, 1.0f);
-            float b = Random.Range(0.0f, 1.0f);
-            props.SetColor("_Color", new Color(r, g, b));
+            Color color = colorsGenerator.GetFloorColor();
+            props.SetColor("_BaseColor", color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
@@ -158,10 +158,8 @@ public class MazeGenerator : MonoBehaviour {
 
         foreach (GameObject obj in pillars)
         {
-            float r = Random.Range(0.0f, 1.0f);
-            float g = Random.Range(0.0f, 1.0f);
-            float b = Random.Range(0.0f, 1.0f);
-            props.SetColor("_Color", new Color(r, g, b));
+            Color color = colorsGenerator.GetNextColorForColorScheme();
+            props.SetColor("_BaseColor", color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
