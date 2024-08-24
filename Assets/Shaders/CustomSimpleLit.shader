@@ -1,4 +1,4 @@
-Shader "Universal Render Pipeline/CustomLit"
+Shader "Universal Render Pipeline/CustomSimpleLit"
 {
     Properties
     {
@@ -112,8 +112,8 @@ Shader "Universal Render Pipeline/CustomLit"
 
             // -------------------------------------
             // Shader Stages
-            #pragma vertex LitPassVertex
-            #pragma fragment LitPassFragment
+            #pragma vertex LitPassVertexSimple
+            #pragma fragment LitPassFragmentSimple
 
             // -------------------------------------
             // Material Keywords
@@ -168,8 +168,8 @@ Shader "Universal Render Pipeline/CustomLit"
             #pragma instancing_options renderinglayer
             #include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
+            #include "CustomSimpleLitInput.hlsl"
+            #include "CustomSimpleLitForwardPass.hlsl"
             ENDHLSL
         }
 
