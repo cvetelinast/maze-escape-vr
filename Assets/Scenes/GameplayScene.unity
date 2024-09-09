@@ -794,7 +794,12 @@ PrefabInstance:
     - target: {fileID: 4531192050553011021, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_EnableInputActions
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6694496370488184914, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_LineBendRatio
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6694496370488184924, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
