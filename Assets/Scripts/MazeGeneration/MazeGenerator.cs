@@ -26,15 +26,29 @@ public class MazeGenerator : MonoBehaviour {
 
     private GameObject tmp;
 
-    void Start()
+    public void Initialize()
+    {
+        colorsGenerator.CalculateBaseColor();
+    }
+
+    public void SetupFloor(Transform floorCubeTransform)
+    {
+        float x = Columns * (CellWidth + (AddGaps ? .2f : 0));
+        float z = Rows * (CellHeight + (AddGaps ? .2f : 0));
+
+        floorCubeTransform.localScale = new Vector3(x, 1, z);
+        Vector3 center = new Vector3((x - CellWidth) / 2, 0f, (z - CellHeight) / 2);
+        floorCubeTransform.position = new Vector3(center.x, -0.5f, center.z);
+        GPUInstancingFloor(floorCubeTransform);
+    }
+
+    public void GenerateMaze()
     {
         mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns);
 
         mMazeGenerator.GenerateMaze();
 
         InstantiateGameObjectsInMaze();
-
-        colorsGenerator.CalculateBaseColor();
 
         GPUInstancingWalls();
         GPUInstancingFloors();
@@ -51,7 +65,7 @@ public class MazeGenerator : MonoBehaviour {
                 float z = row * (CellHeight + (AddGaps ? .2f : 0));
                 MazeCell cell = mMazeGenerator.GetMazeCell(row, column);
 
-                InstantiateFloor(new Vector3(x, 0, z), Quaternion.identity);
+                //InstantiateFloor(new Vector3(x, 0, z), Quaternion.identity);
 
                 if (cell.WallRight)
                 {
@@ -119,6 +133,18 @@ public class MazeGenerator : MonoBehaviour {
         tmp = Instantiate(Pillar, position, Quaternion.identity);
         pillars.Add(tmp);
         tmp.transform.parent = transform;
+    }
+
+    private void GPUInstancingFloor(Transform baseCubeTransform)
+    {
+        MaterialPropertyBlock props = new MaterialPropertyBlock();
+        MeshRenderer renderer;
+
+        Color color = colorsGenerator.GetFloorColor();
+        props.SetColor("_BaseColor", color);
+
+        renderer = baseCubeTransform.GetComponent<MeshRenderer>();
+        renderer.SetPropertyBlock(props);
     }
 
     private void GPUInstancingWalls()

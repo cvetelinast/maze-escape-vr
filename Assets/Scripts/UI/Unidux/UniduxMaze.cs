@@ -28,7 +28,10 @@ public sealed class UniduxMaze : SingletonMonoBehaviour<UniduxMaze>, IStoreAcces
     }
 
     public static Store<UniduxState> Store {
-        get { return Instance._store = Instance._store ?? new Store<UniduxState>(InitialState); }
+        get {
+            return Instance._store = Instance._store ??
+                new Store<UniduxState>(UniduxPersistentStorage.state ?? InitialState);
+        }
     }
 
     public static object Dispatch<TAction>(TAction action)
@@ -39,5 +42,10 @@ public sealed class UniduxMaze : SingletonMonoBehaviour<UniduxMaze>, IStoreAcces
     void Update()
     {
         Store.Update();
+    }
+
+    void OnDestroy()
+    {
+        UniduxPersistentStorage.StoreState();
     }
 }
