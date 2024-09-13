@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MazeGenerator : MonoBehaviour {
 
@@ -13,7 +15,7 @@ public class MazeGenerator : MonoBehaviour {
     [SerializeField] private float CellWidth = 5;
     [SerializeField] private float CellHeight = 5;
     [SerializeField] private bool AddGaps = true;
-    [SerializeField] private GameObject GoalPrefab = null;
+    [SerializeField] private GameObject CoinPrefab = null;
     [SerializeField] private GameObject FinishPrefab = null;
 
     [SerializeField] private ColorsGenerator colorsGenerator;
@@ -83,9 +85,9 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal && GoalPrefab != null)
+                if (cell.IsGoal && CoinPrefab != null)
                 {
-                    tmp = Instantiate(GoalPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
+                    tmp = Instantiate(CoinPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;
                 }
             }
@@ -103,7 +105,10 @@ public class MazeGenerator : MonoBehaviour {
                 }
             }
         }
+    }
 
+    public void InitializeFinishGO()
+    {
         int lastCellRow = Rows;
         int lastCellColumn = Columns;
 

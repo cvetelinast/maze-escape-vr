@@ -10,6 +10,10 @@ public class GameplayController : MonoBehaviour {
 
     [SerializeField] private Transform baseCubeTransform;
 
+    [SerializeField] private PlayerCollideController playerCollideController;
+
+    [SerializeField] private AudioManager audioManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +22,26 @@ public class GameplayController : MonoBehaviour {
         mazeGenerator.Initialize();
         mazeGenerator.SetupFloor(baseCubeTransform);
         mazeGenerator.GenerateMaze();
+        mazeGenerator.InitializeFinishGO();
+
+        playerCollideController.OnPlayerCollideWithFinishLine += OnPlayerCollideWithFinishLine;
+        playerCollideController.OnPlayerCollideWithCoin += OnPlayerCollideWithCoin;
+
+        audioManager.PlayBackgroundMusic();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnPlayerCollideWithFinishLine(GameObject finishGO)
     {
+        Debug.Log("Finish line reached");
+        finishGO.SetActive(false);
+        audioManager.PlayAudioFinishLine();
+    }
+
+    private void OnPlayerCollideWithCoin(GameObject coinGO)
+    {
+        Debug.Log("Coin reached");
+        coinGO.SetActive(false);
+        audioManager.PlayAudioCollectCoin();
 
     }
 }
