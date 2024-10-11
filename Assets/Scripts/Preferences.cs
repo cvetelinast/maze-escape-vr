@@ -42,7 +42,7 @@ public class Preferences {
     public static MazeColorScheme GetMazeColorScheme()
     {
         var mazeColorSchemeStr = PlayerPrefs.GetString(
-            COLOR_SCHEME_PREFS_KEY, MazeColorScheme.Blue.ToString());
+            COLOR_SCHEME_PREFS_KEY, MazeColorScheme.BLUE_LAGOON.ToString());
         return (MazeColorScheme)System.Enum.Parse(typeof(MazeColorScheme), mazeColorSchemeStr);
     }
 }
