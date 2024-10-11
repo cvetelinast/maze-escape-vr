@@ -27,6 +27,7 @@ public class MazeGenerator : MonoBehaviour {
     private List<GameObject> floors = new List<GameObject>();
 
     private GameObject tmp;
+    public Vector3 center { get; private set; }
 
     public void Initialize()
     {
@@ -39,9 +40,14 @@ public class MazeGenerator : MonoBehaviour {
         float z = Rows * (CellHeight + (AddGaps ? .2f : 0));
 
         floorCubeTransform.localScale = new Vector3(x, 1, z);
-        Vector3 center = new Vector3((x - CellWidth) / 2, 0f, (z - CellHeight) / 2);
+        center = new Vector3((x - CellWidth) / 2, 0f, (z - CellHeight) / 2);
         floorCubeTransform.position = new Vector3(center.x, -0.5f, center.z);
         GPUInstancingFloor(floorCubeTransform);
+    }
+
+    public float GetLargestDimension()
+    {
+        return Mathf.Max(Rows * CellHeight, Columns * CellWidth);
     }
 
     public void GenerateMaze()

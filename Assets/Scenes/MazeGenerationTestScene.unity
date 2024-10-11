@@ -426,7 +426,7 @@ MonoBehaviour:
   CellWidth: 4
   CellHeight: 4
   AddGaps: 0
-  GoalPrefab: {fileID: 159624, guid: 342b8470f4e7a9e4cb053c7e34ba49de, type: 3}
+  CoinPrefab: {fileID: 159624, guid: 342b8470f4e7a9e4cb053c7e34ba49de, type: 3}
   FinishPrefab: {fileID: 130820, guid: e675c8379257e58469135755b248ddf5, type: 3}
   colorsGenerator: {fileID: 1125211476}
 --- !u!1 &1125211475

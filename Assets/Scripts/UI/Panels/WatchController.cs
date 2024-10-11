@@ -17,6 +17,10 @@ public class WatchController : MonoBehaviour {
 
     [SerializeField] private Button closeButtonMap;
 
+    [SerializeField] private MapController mapController;
+
+    [SerializeField] private RawImage mapImage;
+
     private void Start()
     {
         settingsButton.onClick.AddListener(() => OnButtonClicked(true));
@@ -42,12 +46,18 @@ public class WatchController : MonoBehaviour {
             bool newVisibility = !settingsPanelGO.activeSelf;
             ToggleShowPanel(false, mapPanelGO);
             ToggleShowPanel(newVisibility, settingsPanelGO);
+
+            mapController.HideMap();
+            mapImage.gameObject.SetActive(false);
         }
         else
         {
             bool newVisibility = !mapPanelGO.activeSelf;
             ToggleShowPanel(false, settingsPanelGO);
             ToggleShowPanel(newVisibility, mapPanelGO);
+
+            mapController.ShowMap();
+            mapImage.gameObject.SetActive(true);
         }
     }
 

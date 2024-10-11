@@ -14,6 +14,8 @@ public class GameplayController : MonoBehaviour {
 
     [SerializeField] private AudioManager audioManager;
 
+    [SerializeField] private MapController mapController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +30,8 @@ public class GameplayController : MonoBehaviour {
         playerCollideController.OnPlayerCollideWithCoin += OnPlayerCollideWithCoin;
 
         audioManager.PlayBackgroundMusic();
+
+        mapController.AlignMapToMaze(mazeGenerator.center, mazeGenerator.GetLargestDimension());
     }
 
     private void OnPlayerCollideWithFinishLine(GameObject finishGO)
