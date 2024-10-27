@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,8 +16,6 @@ public class WatchController : MonoBehaviour {
     [SerializeField] private Button closeButtonMap;
 
     [SerializeField] private MapController mapController;
-
-    [SerializeField] private RawImage mapImage;
 
     private void Start()
     {
@@ -48,7 +44,6 @@ public class WatchController : MonoBehaviour {
             ToggleShowPanel(newVisibility, settingsPanelGO);
 
             mapController.HideMap();
-            mapImage.gameObject.SetActive(false);
         }
         else
         {
@@ -57,7 +52,6 @@ public class WatchController : MonoBehaviour {
             ToggleShowPanel(newVisibility, mapPanelGO);
 
             mapController.ShowMap();
-            mapImage.gameObject.SetActive(true);
         }
     }
 
