@@ -31,7 +31,7 @@ public class MazeGenerator : MonoBehaviour {
 
     public void Initialize()
     {
-        colorsGenerator.CalculateBaseColor();
+        colorsGenerator.SetupBaseColor();
     }
 
     public void SetupFloor(Transform floorCubeTransform)

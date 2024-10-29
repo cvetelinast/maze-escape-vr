@@ -1,30 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static ColorsGenerator;
 
 public class Preferences {
 
-    private static readonly string LEVEL_PREFS_KEY = "LEVEL";
-    private static readonly string MAX_LEVEL_PREFS_KEY = "MAX_LEVEL";
+    private static readonly string CURRENT_LEVEL_PREFS_KEY = "CURRENT_LEVEL";
+    private static readonly string MAX_UNLOCKED_LEVEL_PREFS_KEY = "MAX_UNLOCKED_LEVEL";
     private static readonly string COINS_PREFS_KEY = "COINS";
-    private static readonly string COLOR_SCHEME_PREFS_KEY = "COLOR_SCHEME";
 
     public static void SetLevel(int level)
     {
-        PlayerPrefs.SetInt(LEVEL_PREFS_KEY, level);
+        PlayerPrefs.SetInt(CURRENT_LEVEL_PREFS_KEY, level);
     }
 
     public static int GetLevel() =>
-         PlayerPrefs.GetInt(LEVEL_PREFS_KEY, 0);
+         PlayerPrefs.GetInt(CURRENT_LEVEL_PREFS_KEY, 1);
 
-    public static void SetMaxLevel(int level)
+    public static void SetMaxUnlockedLevel(int level)
     {
-        PlayerPrefs.SetInt(MAX_LEVEL_PREFS_KEY, level);
+        PlayerPrefs.SetInt(MAX_UNLOCKED_LEVEL_PREFS_KEY, level);
     }
 
-    public static int GetMaxLevel() =>
-         PlayerPrefs.GetInt(MAX_LEVEL_PREFS_KEY, 0);
+    public static int GetMaxUnlockedLevel() =>
+         PlayerPrefs.GetInt(MAX_UNLOCKED_LEVEL_PREFS_KEY, 1);
 
     public static void SetCoins(int coins)
     {
@@ -33,16 +29,4 @@ public class Preferences {
 
     public static int GetCoins() =>
          PlayerPrefs.GetInt(COINS_PREFS_KEY, 0);
-
-    public static void SetMazeColorScheme(MazeColorScheme mazeColorScheme)
-    {
-        PlayerPrefs.SetString(COLOR_SCHEME_PREFS_KEY, mazeColorScheme.ToString());
-    }
-
-    public static MazeColorScheme GetMazeColorScheme()
-    {
-        var mazeColorSchemeStr = PlayerPrefs.GetString(
-            COLOR_SCHEME_PREFS_KEY, MazeColorScheme.BLUE_LAGOON.ToString());
-        return (MazeColorScheme)System.Enum.Parse(typeof(MazeColorScheme), mazeColorSchemeStr);
-    }
 }

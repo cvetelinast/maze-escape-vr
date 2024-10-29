@@ -655,6 +655,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 486728694303875415, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: showAllLevelsButton
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 519969868389136600, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -1024,7 +1029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb771154760875a489131f4f65aad4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colorScheme: 2
+  colorScheme: 4
   colors: []
 --- !u!4 &1125211477
 Transform:

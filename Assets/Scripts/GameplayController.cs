@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayController : MonoBehaviour {
 
@@ -39,6 +38,16 @@ public class GameplayController : MonoBehaviour {
         Debug.Log("Finish line reached");
         finishGO.SetActive(false);
         audioManager.PlayAudioFinishLine();
+
+        int levelIndex = Preferences.GetLevel();
+        int maxUnlockedLevel = Preferences.GetMaxUnlockedLevel();
+
+        if (levelIndex == maxUnlockedLevel)
+        {
+            Preferences.SetMaxUnlockedLevel(maxUnlockedLevel + 1);
+        }
+
+        SceneManager.LoadScene(Constants.MENU_SCENE);
     }
 
     private void OnPlayerCollideWithCoin(GameObject coinGO)
@@ -46,6 +55,5 @@ public class GameplayController : MonoBehaviour {
         Debug.Log("Coin reached");
         coinGO.SetActive(false);
         audioManager.PlayAudioCollectCoin();
-
     }
 }
