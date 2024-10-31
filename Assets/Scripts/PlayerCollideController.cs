@@ -10,12 +10,12 @@ public class PlayerCollideController : MonoBehaviour {
     {
         GameObject hitObject = hit.gameObject;
 
-        if (hitObject.tag == "Finish")
+        if (hitObject.tag == Constants.FINISH_TAG)
         {
             OnPlayerCollideWithFinishLine?.Invoke(hitObject);
         }
 
-        if (hitObject.tag == "Coin")
+        if (hitObject.tag == Constants.COIN_TAG)
         {
             OnPlayerCollideWithCoin?.Invoke(hitObject);
         }

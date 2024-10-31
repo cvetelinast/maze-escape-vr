@@ -7,8 +7,6 @@ public class HomeMenuController : MonoBehaviour {
 
     [SerializeField] private Button playButton;
 
-    [SerializeField] private bool showAllLevelsButton = true;
-
     [SerializeField] private Button allLevelsButton;
 
     [SerializeField] private AllLevelsScreenController allLevelsScreenController;
@@ -20,30 +18,24 @@ public class HomeMenuController : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        playButton.onClick.AddListener(() =>
+        playButton?.onClick.AddListener(() =>
         {
             Preferences.SetLevel(Preferences.GetMaxUnlockedLevel());
             SceneManager.LoadScene(Constants.GAMEPLAY_SCENE);
         });
 
-        if (showAllLevelsButton)
+        allLevelsButton?.onClick.AddListener(() =>
         {
-            allLevelsButton.onClick.AddListener(() =>
-            {
-                allLevelsScreenController.Show();
-            });
-        }
+            allLevelsScreenController?.Show();
+        });
 
         LoadPreferences();
     }
 
     private void OnDestroy()
     {
-        playButton.onClick.RemoveAllListeners();
-        if (showAllLevelsButton)
-        {
-            allLevelsButton.onClick.RemoveAllListeners();
-        }
+        playButton?.onClick.RemoveAllListeners();
+        allLevelsButton?.onClick.RemoveAllListeners();
     }
 
     private void LoadPreferences()

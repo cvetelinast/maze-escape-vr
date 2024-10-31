@@ -19,6 +19,7 @@ public class MazeGenerator : MonoBehaviour {
     [SerializeField] private GameObject FinishPrefab = null;
 
     [SerializeField] private ColorsGenerator colorsGenerator;
+    [SerializeField] private GameObject itemsContainerPrefab;
 
     private BasicMazeGenerator mMazeGenerator = null;
 
@@ -32,6 +33,7 @@ public class MazeGenerator : MonoBehaviour {
     public void Initialize()
     {
         colorsGenerator.SetupBaseColor();
+        itemsContainerPrefab.GetComponent<ItemsController>().Initialize(colorsGenerator.colorScheme);
     }
 
     public void SetupFloor(Transform floorCubeTransform)
@@ -91,9 +93,9 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal && CoinPrefab != null)
+                if (cell.IsGoal && itemsContainerPrefab != null)
                 {
-                    tmp = Instantiate(CoinPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
+                    tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;
                 }
             }
@@ -152,7 +154,7 @@ public class MazeGenerator : MonoBehaviour {
         MeshRenderer renderer;
 
         Color color = colorsGenerator.GetFloorColor();
-        props.SetColor("_BaseColor", color);
+        props.SetColor(Constants.BASE_COLOR, color);
 
         renderer = baseCubeTransform.GetComponent<MeshRenderer>();
         renderer.SetPropertyBlock(props);
@@ -166,7 +168,7 @@ public class MazeGenerator : MonoBehaviour {
         foreach (GameObject obj in walls)
         {
             Color color = colorsGenerator.GetNextColorForColorScheme();
-            props.SetColor("_BaseColor", color);
+            props.SetColor(Constants.BASE_COLOR, color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
@@ -181,7 +183,7 @@ public class MazeGenerator : MonoBehaviour {
         foreach (GameObject obj in floors)
         {
             Color color = colorsGenerator.GetFloorColor();
-            props.SetColor("_BaseColor", color);
+            props.SetColor(Constants.BASE_COLOR, color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
@@ -196,7 +198,7 @@ public class MazeGenerator : MonoBehaviour {
         foreach (GameObject obj in pillars)
         {
             Color color = colorsGenerator.GetNextColorForColorScheme();
-            props.SetColor("_BaseColor", color);
+            props.SetColor(Constants.BASE_COLOR, color);
 
             renderer = obj.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);

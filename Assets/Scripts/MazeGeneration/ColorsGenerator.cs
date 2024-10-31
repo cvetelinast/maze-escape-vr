@@ -16,7 +16,7 @@ public class ColorsGenerator : MonoBehaviour {
 
     }
 
-    [SerializeField] private MazeColorScheme colorScheme = MazeColorScheme.ORANGE_WORLD;
+    [SerializeField] public MazeColorScheme colorScheme { get; private set; } = MazeColorScheme.ORANGE_WORLD;
 
     [SerializeField] private List<Color> colors = new List<Color>();
 
