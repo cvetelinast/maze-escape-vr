@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UniRx.Triggers;
 using UnityEngine;
-using UnityEngine.Events;
+using static ColorsGenerator;
 
 public class MazeGenerator : MonoBehaviour {
 
@@ -34,6 +32,11 @@ public class MazeGenerator : MonoBehaviour {
     {
         colorsGenerator.SetupBaseColor();
         itemsContainerPrefab.GetComponent<ItemsController>().Initialize(colorsGenerator.colorScheme);
+    }
+
+    public MazeColorScheme GetColorScheme()
+    {
+        return colorsGenerator.colorScheme;
     }
 
     public void SetupFloor(Transform floorCubeTransform)
@@ -75,8 +78,6 @@ public class MazeGenerator : MonoBehaviour {
                 float z = row * (CellHeight + (AddGaps ? .2f : 0));
                 MazeCell cell = mMazeGenerator.GetMazeCell(row, column);
 
-                //InstantiateFloor(new Vector3(x, 0, z), Quaternion.identity);
-
                 if (cell.WallRight)
                 {
                     InstantiateWall(new Vector3(x + CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 90, 0));// right
@@ -93,7 +94,7 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal && itemsContainerPrefab != null)
+                if (cell.IsGoal && itemsContainerPrefab != null && (row != Rows || column != Columns))
                 {
                     tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;
@@ -123,15 +124,9 @@ public class MazeGenerator : MonoBehaviour {
         float xLast = lastCellRow * (CellWidth + (AddGaps ? .2f : 0));
         float zLast = lastCellColumn * (CellHeight + (AddGaps ? .2f : 0));
 
-        GameObject finishGO = Instantiate(FinishPrefab, new Vector3(xLast - CellWidth, 0, zLast - CellHeight), Quaternion.identity) as GameObject;
+        Vector3 finishGOPosition = new Vector3(xLast - CellWidth, 1.0f, zLast - CellHeight);
+        GameObject finishGO = Instantiate(FinishPrefab, finishGOPosition, Quaternion.identity) as GameObject;
         finishGO.transform.parent = transform;
-    }
-
-    private void InstantiateFloor(Vector3 position, Quaternion orientation)
-    {
-        tmp = Instantiate(Floor, position, orientation);
-        floors.Add(tmp);
-        tmp.transform.parent = transform;
     }
 
     private void InstantiateWall(Vector3 position, Quaternion orientation)

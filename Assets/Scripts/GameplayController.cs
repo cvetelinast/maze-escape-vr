@@ -15,6 +15,8 @@ public class GameplayController : MonoBehaviour {
 
     [SerializeField] private MapController mapController;
 
+    [SerializeField] private SkyboxController skyboxController;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,12 @@ public class GameplayController : MonoBehaviour {
         mazeGenerator.GenerateMaze();
         mazeGenerator.InitializeFinishGO();
 
+        skyboxController.SetupSkybox(mazeGenerator.GetColorScheme());
+
         playerCollideController.OnPlayerCollideWithFinishLine += OnPlayerCollideWithFinishLine;
         playerCollideController.OnPlayerCollideWithCoin += OnPlayerCollideWithCoin;
 
+        audioManager.SetupBackgroundAudioResource(mazeGenerator.GetColorScheme());
         audioManager.PlayBackgroundMusic();
 
         mapController.AlignMapToMaze(mazeGenerator.center, mazeGenerator.GetLargestDimension());

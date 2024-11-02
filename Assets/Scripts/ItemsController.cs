@@ -17,21 +17,31 @@ public class ItemsController : MonoBehaviour {
     {
         switch (mazeColorScheme)
         {
-            case MazeColorScheme.ORANGE_WORLD:
-                orangeWorldTransform.gameObject.SetActive(true);
+            case MazeColorScheme.GARFIELD:
+                InitializeObjectVisibilities(isGarfieldVisible: true);
                 break;
             case MazeColorScheme.BLUE_LAGOON:
-                blueLagoonTransform.gameObject.SetActive(true);
+                InitializeObjectVisibilities(isBlueLagoonVisible: true);
                 break;
             case MazeColorScheme.JUNGLE:
-                jungleTransform.gameObject.SetActive(true);
+                InitializeObjectVisibilities(isJungleVisible: true);
                 break;
             case MazeColorScheme.BARBIE:
-                barbieTransform.gameObject.SetActive(true);
+                InitializeObjectVisibilities(isBarbieVisible: true);
                 break;
-            case MazeColorScheme.DARK:
-                darkTransform.gameObject.SetActive(true);
+            case MazeColorScheme.DARTH_VADER:
+                InitializeObjectVisibilities(isDarthVaderVisible: true);
                 break;
         }
+    }
+
+    private void InitializeObjectVisibilities(bool isGarfieldVisible = false, bool isBlueLagoonVisible = false,
+        bool isJungleVisible = false, bool isBarbieVisible = false, bool isDarthVaderVisible = false)
+    {
+        orangeWorldTransform.gameObject.SetActive(isGarfieldVisible);
+        blueLagoonTransform.gameObject.SetActive(isBlueLagoonVisible);
+        jungleTransform.gameObject.SetActive(isJungleVisible);
+        barbieTransform.gameObject.SetActive(isBarbieVisible);
+        darkTransform.gameObject.SetActive(isDarthVaderVisible);
     }
 }

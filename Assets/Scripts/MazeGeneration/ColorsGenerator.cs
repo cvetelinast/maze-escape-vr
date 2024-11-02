@@ -1,22 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ColorsGenerator : MonoBehaviour {
 
     public enum MazeColorScheme {
-        // Light colors
-        ORANGE_WORLD,
+        GARFIELD,
         BLUE_LAGOON,
         JUNGLE,
         BARBIE,
-
-        // Dark colors
-        DARK
-
+        DARTH_VADER
     }
 
-    [SerializeField] public MazeColorScheme colorScheme { get; private set; } = MazeColorScheme.ORANGE_WORLD;
+    [SerializeField] public MazeColorScheme colorScheme { get; private set; }
 
     [SerializeField] private List<Color> colors = new List<Color>();
 
@@ -24,13 +19,6 @@ public class ColorsGenerator : MonoBehaviour {
 
     private Color baseColor;
 
-    private static readonly Color BASE_PINK_COLOR = new Color(1.0f, 0.75f, 0.8f);
-    private static readonly Color BASE_ORANGE_COLOR = new Color(1.0f, 0.56f, 0.35f);
-    private static readonly Color BASE_BLUE_COLOR = new Color(0.0f, 0.95f, 0.95f);
-    private static readonly Color BASE_GREEN_COLOR = new Color(0.4f, 0.95f, 0.3f);
-    private static readonly Color BASE_BLACK_COLOR = new Color(0.0f, 0.0f, 0.0f);
-
-    // Start is called before the first frame update
     void Start()
     {
         //GenerateColors(); // For test purposes
@@ -44,11 +32,11 @@ public class ColorsGenerator : MonoBehaviour {
         {
             Color baseColor = colorScheme switch
             {
-                MazeColorScheme.ORANGE_WORLD => BASE_ORANGE_COLOR,
-                MazeColorScheme.BLUE_LAGOON => BASE_BLUE_COLOR,
-                MazeColorScheme.JUNGLE => BASE_GREEN_COLOR,
-                MazeColorScheme.BARBIE => BASE_PINK_COLOR,
-                MazeColorScheme.DARK => BASE_BLACK_COLOR,
+                MazeColorScheme.GARFIELD => Constants.BASE_ORANGE_COLOR,
+                MazeColorScheme.BLUE_LAGOON => Constants.BASE_BLUE_COLOR,
+                MazeColorScheme.JUNGLE => Constants.BASE_GREEN_COLOR,
+                MazeColorScheme.BARBIE => Constants.BASE_PINK_COLOR,
+                MazeColorScheme.DARTH_VADER => Constants.BASE_BLACK_COLOR,
                 _ => new Color(1.0f, 1.0f, 1.0f),
             };
 
@@ -74,11 +62,11 @@ public class ColorsGenerator : MonoBehaviour {
     {
         return colorScheme switch
         {
-            MazeColorScheme.ORANGE_WORLD => BASE_ORANGE_COLOR,
-            MazeColorScheme.BLUE_LAGOON => BASE_BLUE_COLOR,
-            MazeColorScheme.JUNGLE => BASE_GREEN_COLOR,
-            MazeColorScheme.BARBIE => BASE_PINK_COLOR,
-            MazeColorScheme.DARK => BASE_BLACK_COLOR,
+            MazeColorScheme.GARFIELD => Constants.BASE_ORANGE_COLOR,
+            MazeColorScheme.BLUE_LAGOON => Constants.BASE_BLUE_COLOR,
+            MazeColorScheme.JUNGLE => Constants.BASE_GREEN_COLOR,
+            MazeColorScheme.BARBIE => Constants.BASE_PINK_COLOR,
+            MazeColorScheme.DARTH_VADER => Constants.BASE_BLACK_COLOR,
             _ => new Color(1.0f, 1.0f, 1.0f),
         };
     }
@@ -90,20 +78,20 @@ public class ColorsGenerator : MonoBehaviour {
             1 => MazeColorScheme.BARBIE,
             2 => MazeColorScheme.BLUE_LAGOON,
             3 => MazeColorScheme.JUNGLE,
-            4 => MazeColorScheme.ORANGE_WORLD,
-            5 => MazeColorScheme.DARK,
+            4 => MazeColorScheme.GARFIELD,
+            5 => MazeColorScheme.DARTH_VADER,
 
             6 => MazeColorScheme.BLUE_LAGOON,
             7 => MazeColorScheme.JUNGLE,
-            8 => MazeColorScheme.ORANGE_WORLD,
+            8 => MazeColorScheme.GARFIELD,
             9 => MazeColorScheme.BARBIE,
-            10 => MazeColorScheme.DARK,
+            10 => MazeColorScheme.DARTH_VADER,
 
             11 => MazeColorScheme.JUNGLE,
             12 => MazeColorScheme.BLUE_LAGOON,
             13 => MazeColorScheme.BARBIE,
-            14 => MazeColorScheme.ORANGE_WORLD,
-            15 => MazeColorScheme.DARK,
+            14 => MazeColorScheme.GARFIELD,
+            15 => MazeColorScheme.DARTH_VADER,
 
             _ => throw new System.NotImplementedException(),
         };
@@ -113,11 +101,11 @@ public class ColorsGenerator : MonoBehaviour {
     {
         Color color = colorScheme switch
         {
-            MazeColorScheme.ORANGE_WORLD => GetRandomOrangeColor(),
+            MazeColorScheme.GARFIELD => GetRandomOrangeColor(),
             MazeColorScheme.BLUE_LAGOON => GetRandomBlueColor(),
             MazeColorScheme.JUNGLE => GetRandomGreenColor(),
             MazeColorScheme.BARBIE => GetRandomPinkColor(),
-            MazeColorScheme.DARK => GetRandomDarkColor(),
+            MazeColorScheme.DARTH_VADER => GetRandomDarkColor(),
             _ => new Color(1.0f, 1.0f, 1.0f),
         };
         return color;
@@ -130,36 +118,36 @@ public class ColorsGenerator : MonoBehaviour {
 
     private Color GetRandomPinkColor()
     {
-        float r = Mathf.Clamp01(BASE_PINK_COLOR.r + (float)(rand.NextDouble() * 0.4 - 0.2));
-        float g = Mathf.Clamp01(BASE_PINK_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.2));
-        float b = Mathf.Clamp01(BASE_PINK_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.2));
+        float r = Mathf.Clamp01(Constants.BASE_PINK_COLOR.r + (float)(rand.NextDouble() * 0.4 - 0.2));
+        float g = Mathf.Clamp01(Constants.BASE_PINK_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.2));
+        float b = Mathf.Clamp01(Constants.BASE_PINK_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.2));
 
         return new Color(r, g, b);
     }
 
     private Color GetRandomOrangeColor()
     {
-        float r = Mathf.Clamp01(BASE_ORANGE_COLOR.r + (float)(rand.NextDouble() * 0.6 + 3.15));
-        float g = Mathf.Clamp01(BASE_ORANGE_COLOR.g + (float)(rand.NextDouble() * 0.5 - 0.12));
-        float b = Mathf.Clamp01(BASE_ORANGE_COLOR.b + (float)(rand.NextDouble() * 0.2 - 0.5));
+        float r = Mathf.Clamp01(Constants.BASE_ORANGE_COLOR.r + (float)(rand.NextDouble() * 0.6 + 3.15));
+        float g = Mathf.Clamp01(Constants.BASE_ORANGE_COLOR.g + (float)(rand.NextDouble() * 0.5 - 0.12));
+        float b = Mathf.Clamp01(Constants.BASE_ORANGE_COLOR.b + (float)(rand.NextDouble() * 0.2 - 0.5));
 
         return new Color(r, g, b);
     }
 
     private Color GetRandomBlueColor()
     {
-        float r = Mathf.Clamp01(BASE_BLUE_COLOR.r + (float)(rand.NextDouble() * 0.1 - 0.2));
-        float g = Mathf.Clamp01(BASE_BLUE_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.4));
-        float b = Mathf.Clamp01(BASE_BLUE_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.4));
+        float r = Mathf.Clamp01(Constants.BASE_BLUE_COLOR.r + (float)(rand.NextDouble() * 0.1 - 0.2));
+        float g = Mathf.Clamp01(Constants.BASE_BLUE_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.4));
+        float b = Mathf.Clamp01(Constants.BASE_BLUE_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.4));
 
         return new Color(r, g, b);
     }
 
     private Color GetRandomGreenColor()
     {
-        float r = Mathf.Clamp01(BASE_GREEN_COLOR.r + (float)(rand.NextDouble() * 0.4 - 0.2));
-        float g = Mathf.Clamp01(BASE_GREEN_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.5));
-        float b = Mathf.Clamp01(BASE_GREEN_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.2));
+        float r = Mathf.Clamp01(Constants.BASE_GREEN_COLOR.r + (float)(rand.NextDouble() * 0.4 - 0.2));
+        float g = Mathf.Clamp01(Constants.BASE_GREEN_COLOR.g + (float)(rand.NextDouble() * 0.4 - 0.5));
+        float b = Mathf.Clamp01(Constants.BASE_GREEN_COLOR.b + (float)(rand.NextDouble() * 0.4 - 0.2));
 
         return new Color(r, g, b);
     }

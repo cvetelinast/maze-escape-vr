@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 610848057}
   - component: {fileID: 610848056}
   - component: {fileID: 610848058}
+  - component: {fileID: 610848059}
   m_Layer: 0
   m_Name: MainController
   m_TagString: Untagged
@@ -183,6 +184,24 @@ MonoBehaviour:
   playerCollideController: {fileID: 1993243853}
   audioManager: {fileID: 1357228526}
   mapController: {fileID: 648177181}
+  skyboxController: {fileID: 610848059}
+--- !u!114 &610848059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610848055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3db30201fd051e4fba64f8166054c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  garfieldSkybox: {fileID: 2100000, guid: 44d0573bf6d91e447b62f3aff840f2ae, type: 2}
+  blueLagoonSkybox: {fileID: 2100000, guid: c051fe5a20f72814f9643eb10ebbd2fc, type: 2}
+  jungleSkybox: {fileID: 2100000, guid: 39d27e80110a983468075fd1868610d7, type: 2}
+  barbieSkybox: {fileID: 2100000, guid: fa95802f80bd745cfb5e9c89f7e22341, type: 2}
+  darthVaderSkybox: {fileID: 2100000, guid: 6eecb3bb77b3f7a43a504fceda3b0b5f, type: 2}
 --- !u!114 &648177181 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7019929822472530195, guid: c91f92ee290a7734096acc11eee22869,
@@ -635,6 +654,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1160647111}
     m_Modifications:
+    - target: {fileID: 1345171662680478219, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345171662680478219, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1345171662680478219, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042309058968644010, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042309058968644010, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4042309058968644010, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4227896467414979695, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: m_Name
@@ -705,6 +754,21 @@ PrefabInstance:
       propertyPath: mapCameraTransform
       value: 
       objectReference: {fileID: 821488873}
+    - target: {fileID: 7788989362901024418, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788989362901024418, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7788989362901024418, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1145,6 +1209,14 @@ MonoBehaviour:
   collectCoinAudioSource: {fileID: 2061215797}
   finishLineAudioSource: {fileID: 1995885587}
   backgroundMusicAudioSource: {fileID: 822381201}
+  garfieldAudioResource: {fileID: 8300000, guid: 2ebc86f0d786ff04e9ff1f3440d021cc,
+    type: 3}
+  blueLagoonAudioResource: {fileID: 8300000, guid: 3716cedb693e4744ba9581ea4602d391,
+    type: 3}
+  jungleAudioResource: {fileID: 8300000, guid: 8dc63cb56dabad84893d28563ed0a1f2, type: 3}
+  barbieAudioResource: {fileID: 8300000, guid: dbb70496c0ccdcb44a972babbf164a43, type: 3}
+  darthVaderAudioResource: {fileID: 8300000, guid: bfca037f22e26bc41add18cb87107998,
+    type: 3}
 --- !u!4 &1357228527
 Transform:
   m_ObjectHideFlags: 0
@@ -1161,113 +1233,6 @@ Transform:
   - {fileID: 2061215795}
   - {fileID: 1995885586}
   - {fileID: 822381200}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1472564284
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1472564288}
-  - component: {fileID: 1472564287}
-  - component: {fileID: 1472564286}
-  - component: {fileID: 1472564285}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!135 &1472564285
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472564284}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1472564286
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472564284}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: d36ea66fd62d1104199dc249cf14b3eb, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1472564287
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472564284}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1472564288
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1472564284}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1993243847 stripped
@@ -1682,7 +1647,6 @@ SceneRoots:
   - {fileID: 673413204}
   - {fileID: 1022196586}
   - {fileID: 1125211477}
-  - {fileID: 1472564288}
   - {fileID: 610848057}
   - {fileID: 1266196772}
   - {fileID: 1160647109}
