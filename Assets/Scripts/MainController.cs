@@ -7,6 +7,7 @@ public class MainController : MonoBehaviour {
     void Start()
     {
         RenderSettings.skybox = skyboxMaterial;
+        //Preferences.SetMaxUnlockedLevel(15);
     }
 }
 

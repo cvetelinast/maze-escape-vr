@@ -30,7 +30,25 @@ public class MazeGenerator : MonoBehaviour {
 
     public void Initialize()
     {
-        colorsGenerator.SetupBaseColor();
+        int level = Preferences.GetLevel();
+        seed = level;
+        if (seed <= 5)
+        {
+            Rows = 5;
+            Columns = 5;
+        }
+        else if (seed <= 10)
+        {
+            Rows = 8;
+            Columns = 8;
+        }
+        else
+        {
+            Rows = 11;
+            Columns = 11;
+        }
+
+        colorsGenerator.SetupBaseColor(level);
         itemsContainerPrefab.GetComponent<ItemsController>().Initialize(colorsGenerator.colorScheme);
     }
 
@@ -94,7 +112,7 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal && itemsContainerPrefab != null && (row != Rows || column != Columns))
+                if (cell.IsGoal && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
                 {
                     tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;

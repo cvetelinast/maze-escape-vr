@@ -50,9 +50,8 @@ public class ColorsGenerator : MonoBehaviour {
         return colors;
     }
 
-    public void SetupBaseColor()
+    public void SetupBaseColor(int level)
     {
-        int level = Preferences.GetLevel();
         colorScheme = GetMazeColorSchemeForLevel(level);
         this.baseColor = CalculateBaseColor(colorScheme);
         colors.Add(this.baseColor);
