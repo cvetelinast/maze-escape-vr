@@ -27,6 +27,8 @@ public class WatchController : MonoBehaviour {
 
         closeButtonSettings.onClick.AddListener(() => OnCloseButtonClicked(true));
         closeButtonMap.onClick.AddListener(() => OnCloseButtonClicked(false));
+
+        mapController.HideMap();
     }
 
     private void OnDestroy()

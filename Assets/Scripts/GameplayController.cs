@@ -17,11 +17,19 @@ public class GameplayController : MonoBehaviour {
 
     [SerializeField] private SkyboxController skyboxController;
 
+    [SerializeField] private Transform xrRootTransform;
+
+    [SerializeField] private HomeMenuController homeMenuController;
+
     // Start is called before the first frame update
     void Start()
     {
         playerTransform.position = new Vector3(0f, 0f, 0f);
         playerTransform.rotation = Quaternion.Euler(0f, 45f, 0f);
+
+#if UNITY_EDITOR
+        xrRootTransform.rotation = Quaternion.identity;
+#endif
         mazeGenerator.Initialize();
         mazeGenerator.SetupFloor(baseCubeTransform);
         mazeGenerator.GenerateMaze();
@@ -60,5 +68,10 @@ public class GameplayController : MonoBehaviour {
         Debug.Log("Coin reached");
         coinGO.SetActive(false);
         audioManager.PlayAudioCollectCoin();
+        int coinCount = Preferences.GetCoins();
+        int newCoinCount = coinCount + 1;
+        Preferences.SetCoins(newCoinCount);
+
+        homeMenuController.OnPlayerCollideWithCoin(newCoinCount);
     }
 }

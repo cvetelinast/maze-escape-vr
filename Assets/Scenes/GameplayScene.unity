@@ -185,6 +185,8 @@ MonoBehaviour:
   audioManager: {fileID: 1357228526}
   mapController: {fileID: 648177181}
   skyboxController: {fileID: 610848059}
+  xrRootTransform: {fileID: 997441116}
+  homeMenuController: {fileID: 1100367640}
 --- !u!114 &610848059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,6 +590,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!4 &997441116 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4134505312059479865, guid: 895f6f3c2d334633b5800312285058d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1160647109}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1022196585
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +662,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1160647111}
     m_Modifications:
+    - target: {fileID: 1131595332046321998, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: mapController
+      value: 
+      objectReference: {fileID: 648177181}
     - target: {fileID: 1345171662680478219, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -741,6 +754,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7019929822472530195, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 821488876}
+    - target: {fileID: 7019929822472530195, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
       propertyPath: camera
       value: 
       objectReference: {fileID: 821488876}
@@ -780,6 +798,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1100367638}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1100367640 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 486728694303875415, guid: c91f92ee290a7734096acc11eee22869,
+    type: 3}
+  m_PrefabInstance: {fileID: 1100367638}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5262edb48fe08c4cb753a169cbf6431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1125211475
 GameObject:
   m_ObjectHideFlags: 0

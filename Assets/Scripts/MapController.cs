@@ -7,7 +7,7 @@ public class MapController : MonoBehaviour {
 
     [SerializeField] private Transform mapCameraTransform;
 
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera cam;
 
     [SerializeField] private RawImage mapImage;
 
@@ -17,7 +17,7 @@ public class MapController : MonoBehaviour {
 
     public void Start()
     {
-        camera.enabled = false;
+        //cam.enabled = false;
         Material circleMaterial = new Material(Shader.Find("Unlit/GameMapShader"));
         mapImage.material = circleMaterial;
         UpdatePlayerPosition();
@@ -25,30 +25,35 @@ public class MapController : MonoBehaviour {
 
     public void Update()
     {
-        UpdatePlayerPosition();
+        if (cam.enabled)
+        {
+            UpdatePlayerPosition();
+        }
     }
 
     public void AlignMapToMaze(Vector3 position, float height)
     {
-        camera.transform.position = new Vector3(position.x, height, position.z);
+        cam.transform.position = new Vector3(position.x, height, position.z);
     }
 
     public void ShowMap()
     {
-        camera.enabled = true;
+        Debug.Log("Show map");
+        cam.enabled = true;
         mapImage.gameObject.SetActive(true);
     }
 
     public void HideMap()
     {
-        camera.enabled = false;
+        Debug.Log("Hide map");
+        cam.enabled = false;
         mapImage.gameObject.SetActive(false);
     }
 
     public void UpdatePlayerPosition()
     {
         Vector3 playerWorldPosition = playerTransform.position;
-        Vector2 viewportPosition = camera.WorldToViewportPoint(playerWorldPosition);
+        Vector2 viewportPosition = cam.WorldToViewportPoint(playerWorldPosition);
         mapImage.material.SetVector(playerPositionPropId,
            new Vector4(viewportPosition.x, viewportPosition.y, 0, 0));
     }
