@@ -34,7 +34,7 @@ public class MazeSpawner : MonoBehaviour {
 		}
 		switch (Algorithm) {
 		case MazeGenerationAlgorithm.PureRecursive:
-			mMazeGenerator = new RecursiveMazeGenerator (Rows, Columns);
+			mMazeGenerator = new RecursiveMazeGenerator (Rows, Columns, FullRandom, RandomSeed);
 			break;
 		case MazeGenerationAlgorithm.RecursiveTree:
 			mMazeGenerator = new RecursiveTreeMazeGenerator (Rows, Columns);

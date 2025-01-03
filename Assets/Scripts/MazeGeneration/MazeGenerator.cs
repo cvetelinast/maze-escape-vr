@@ -75,7 +75,7 @@ public class MazeGenerator : MonoBehaviour {
 
     public void GenerateMaze()
     {
-        mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns);
+        mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns, false, seed);
 
         mMazeGenerator.GenerateMaze();
 
