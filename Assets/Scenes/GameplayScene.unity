@@ -150,7 +150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ac306cddb49e09469fd6622a5d2fbc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialStateJson: {fileID: 0}
 --- !u!4 &610848057
 Transform:
   m_ObjectHideFlags: 0
@@ -654,6 +653,9 @@ MonoBehaviour:
   colorsGenerator: {fileID: 1125211476}
   itemsContainerPrefab: {fileID: 7212510664960188509, guid: a5b1a93dc384aba4e89ce300bf67b14b,
     type: 3}
+  gpuInstancingMaterial: {fileID: 2100000, guid: 8659ae5a38d15b84bbf738ccb3a2dd4d,
+    type: 2}
+  useGPUInstancing: 0
 --- !u!1001 &1100367638
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -662,6 +664,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1160647111}
     m_Modifications:
+    - target: {fileID: 295942444465867644, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 1131595332046321998, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: mapController
@@ -701,6 +708,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Watch
+      objectReference: {fileID: 0}
+    - target: {fileID: 4815970619020510690, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5956216089924485112, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
@@ -772,6 +784,11 @@ PrefabInstance:
       propertyPath: mapCameraTransform
       value: 
       objectReference: {fileID: 821488873}
+    - target: {fileID: 7157591002878909630, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7788989362901024418, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -785,6 +802,11 @@ PrefabInstance:
     - target: {fileID: 7788989362901024418, guid: c91f92ee290a7734096acc11eee22869,
         type: 3}
       propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8052724593663015732, guid: c91f92ee290a7734096acc11eee22869,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -863,6 +885,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1761869943190619490, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2819856895474916288, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_IsActive
@@ -928,10 +955,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4146705899892629883, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4531192050553011021, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_EnableInputActions
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6599448038409827630, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6694496370488184914, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
@@ -996,6 +1033,11 @@ PrefabInstance:
     - target: {fileID: 7696548424635294051, guid: 895f6f3c2d334633b5800312285058d2,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821029318128668983, guid: 895f6f3c2d334633b5800312285058d2,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9014170783809206330, guid: 895f6f3c2d334633b5800312285058d2,
@@ -1325,8 +1367,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 311bde2d611c7744e9b87713df344dd4, type: 3}
-  m_Resource: {fileID: 8300000, guid: 311bde2d611c7744e9b87713df344dd4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 415931448f22fa74b8c8f44caa58af53, type: 3}
+  m_Resource: {fileID: 8300000, guid: 415931448f22fa74b8c8f44caa58af53, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -1633,7 +1675,7 @@ PrefabInstance:
         type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: d36ea66fd62d1104199dc249cf14b3eb, type: 2}
+      objectReference: {fileID: 2100000, guid: 6ae84b6ac11ab1e4da708229a69ad3a8, type: 2}
     - target: {fileID: 4205024581373840549, guid: 3e07eccb5e6f459d886de95044adb1d9,
         type: 3}
       propertyPath: m_IsActive

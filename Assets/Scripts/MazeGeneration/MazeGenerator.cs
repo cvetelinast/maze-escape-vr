@@ -18,15 +18,28 @@ public class MazeGenerator : MonoBehaviour {
 
     [SerializeField] private ColorsGenerator colorsGenerator;
     [SerializeField] private GameObject itemsContainerPrefab;
+    [SerializeField] private Material gpuInstancingMaterial;
 
     private BasicMazeGenerator mMazeGenerator = null;
 
     private List<GameObject> walls = new List<GameObject>();
     private List<GameObject> pillars = new List<GameObject>();
-    private List<GameObject> floors = new List<GameObject>();
 
     private GameObject tmp;
     public Vector3 center { get; private set; }
+
+    public bool useGPUInstancing = false;
+
+    // used only for GPU instancing:
+    private MaterialPropertyBlock wallPropertyBlock;
+    private Mesh wallMesh;
+    private MaterialPropertyBlock pillarPropertyBlock;
+    private Mesh pillarMesh;
+    private List<Matrix4x4> wallMatrices = new List<Matrix4x4>();
+    private List<Matrix4x4> pillarMatrices = new List<Matrix4x4>();
+    private List<Vector4> wallColors = new List<Vector4>();
+    private List<Vector4> pillarColors = new List<Vector4>();
+    private bool isGPUInstancingReady = false;
 
     public void Initialize()
     {
@@ -65,7 +78,7 @@ public class MazeGenerator : MonoBehaviour {
         floorCubeTransform.localScale = new Vector3(x, 1, z);
         center = new Vector3((x - CellWidth) / 2, 0f, (z - CellHeight) / 2);
         floorCubeTransform.position = new Vector3(center.x, -0.5f, center.z);
-        GPUInstancingFloor(floorCubeTransform);
+        SetupFloorColor(floorCubeTransform);
     }
 
     public float GetLargestDimension()
@@ -81,9 +94,29 @@ public class MazeGenerator : MonoBehaviour {
 
         InstantiateGameObjectsInMaze();
 
-        GPUInstancingWalls();
-        GPUInstancingFloors();
-        GPUInstancingPillars();
+        if (useGPUInstancing)
+        {
+            wallPropertyBlock = new MaterialPropertyBlock();
+            wallPropertyBlock.SetVectorArray("_BaseColor", wallColors);
+            wallMesh = Wall.GetComponent<MeshFilter>().sharedMesh;
+
+            pillarPropertyBlock = new MaterialPropertyBlock();
+            pillarPropertyBlock.SetVectorArray("_BaseColor", pillarColors);
+            pillarMesh = Pillar.GetComponent<MeshFilter>().sharedMesh;
+
+            isGPUInstancingReady = true;
+        }
+    }
+
+    private void Update()
+    {
+        if (!useGPUInstancing)
+            return;
+        if (!isGPUInstancingReady)
+            return;
+
+        Graphics.DrawMeshInstanced(wallMesh, 0, gpuInstancingMaterial, wallMatrices.ToArray(), wallMatrices.Count, wallPropertyBlock);
+        Graphics.DrawMeshInstanced(pillarMesh, 0, gpuInstancingMaterial, pillarMatrices.ToArray(), pillarMatrices.Count, pillarPropertyBlock);
     }
 
     private void InstantiateGameObjectsInMaze()
@@ -149,72 +182,60 @@ public class MazeGenerator : MonoBehaviour {
 
     private void InstantiateWall(Vector3 position, Quaternion orientation)
     {
-        tmp = Instantiate(Wall, position, orientation);
-        walls.Add(tmp);
-        tmp.transform.parent = transform;
+        Color color = colorsGenerator.GetNextColorForColorScheme();
+        if (useGPUInstancing)
+        {
+            wallMatrices.Add(Matrix4x4.TRS(position, orientation, Vector3.one));
+            wallColors.Add(color);
+        }
+        else
+        {
+            tmp = Instantiate(Wall, position, orientation);
+            tmp.transform.parent = transform;
+            walls.Add(tmp);
+            MeshRenderer renderer = tmp.GetComponent<MeshRenderer>();
+            renderer.material.color = color;
+        }
     }
 
     private void InstantiatePillar(Vector3 position)
     {
-        tmp = Instantiate(Pillar, position, Quaternion.identity);
-        pillars.Add(tmp);
-        tmp.transform.parent = transform;
-    }
-
-    private void GPUInstancingFloor(Transform baseCubeTransform)
-    {
-        MaterialPropertyBlock props = new MaterialPropertyBlock();
-        MeshRenderer renderer;
-
-        Color color = colorsGenerator.GetFloorColor();
-        props.SetColor(Constants.BASE_COLOR, color);
-
-        renderer = baseCubeTransform.GetComponent<MeshRenderer>();
-        renderer.SetPropertyBlock(props);
-    }
-
-    private void GPUInstancingWalls()
-    {
-        MaterialPropertyBlock props = new MaterialPropertyBlock();
-        MeshRenderer renderer;
-
-        foreach (GameObject obj in walls)
+        Color color = colorsGenerator.GetNextColorForColorScheme();
+        if (useGPUInstancing)
         {
-            Color color = colorsGenerator.GetNextColorForColorScheme();
-            props.SetColor(Constants.BASE_COLOR, color);
-
-            renderer = obj.GetComponent<MeshRenderer>();
-            renderer.SetPropertyBlock(props);
+            pillarMatrices.Add(Matrix4x4.TRS(position, Quaternion.identity, Vector3.one));
+            pillarColors.Add(color);
+        }
+        else
+        {
+            tmp = Instantiate(Pillar, position, Quaternion.identity);
+            pillars.Add(tmp);
+            tmp.transform.parent = transform;
+            MeshRenderer renderer = tmp.GetComponent<MeshRenderer>();
+            renderer.material.color = color;
         }
     }
 
-    private void GPUInstancingFloors()
+    private void SetupFloorColor(Transform baseCubeTransform)
     {
-        MaterialPropertyBlock props = new MaterialPropertyBlock();
-        MeshRenderer renderer;
-
-        foreach (GameObject obj in floors)
+        if (useGPUInstancing)
         {
+            MaterialPropertyBlock props = new MaterialPropertyBlock();
+            MeshRenderer renderer;
+
             Color color = colorsGenerator.GetFloorColor();
             props.SetColor(Constants.BASE_COLOR, color);
 
-            renderer = obj.GetComponent<MeshRenderer>();
+            renderer = baseCubeTransform.GetComponent<MeshRenderer>();
             renderer.SetPropertyBlock(props);
         }
-    }
-
-    private void GPUInstancingPillars()
-    {
-        MaterialPropertyBlock props = new MaterialPropertyBlock();
-        MeshRenderer renderer;
-
-        foreach (GameObject obj in pillars)
+        else
         {
-            Color color = colorsGenerator.GetNextColorForColorScheme();
-            props.SetColor(Constants.BASE_COLOR, color);
+            MeshRenderer renderer;
 
-            renderer = obj.GetComponent<MeshRenderer>();
-            renderer.SetPropertyBlock(props);
+            Color color = colorsGenerator.GetFloorColor();
+            renderer = baseCubeTransform.GetComponent<MeshRenderer>();
+            renderer.material.color = color;
         }
     }
 }

@@ -1,7 +1,7 @@
 Shader "Custom/InstancedColorSurfaceShader" {
      Properties
     {
-        _Color ("Color", Color) = (1, 1, 1, 1)
+        _BaseColor ("Color", Color) = (1, 1, 1, 1)
     }
 
     SubShader
@@ -30,7 +30,7 @@ Shader "Custom/InstancedColorSurfaceShader" {
             };
 
             UNITY_INSTANCING_BUFFER_START(Props)
-                UNITY_DEFINE_INSTANCED_PROP(float4, _Color)
+                UNITY_DEFINE_INSTANCED_PROP(float4, _BaseColor)
             UNITY_INSTANCING_BUFFER_END(Props)
            
             v2f vert(appdata v)
@@ -47,7 +47,7 @@ Shader "Custom/InstancedColorSurfaceShader" {
             fixed4 frag(v2f i) : SV_Target
             {
                 UNITY_SETUP_INSTANCE_ID(i); // necessary only if any instanced properties are going to be accessed in the fragment Shader.
-                return UNITY_ACCESS_INSTANCED_PROP(Props, _Color);
+                return UNITY_ACCESS_INSTANCED_PROP(Props, _BaseColor);
             }
             ENDCG
         }
