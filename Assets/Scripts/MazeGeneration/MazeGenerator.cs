@@ -110,9 +110,7 @@ public class MazeGenerator : MonoBehaviour {
 
     private void Update()
     {
-        if (!useGPUInstancing)
-            return;
-        if (!isGPUInstancingReady)
+        if (!useGPUInstancing || !isGPUInstancingReady)
             return;
 
         Graphics.DrawMeshInstanced(wallMesh, 0, gpuInstancingMaterial, wallMatrices.ToArray(), wallMatrices.Count, wallPropertyBlock);
