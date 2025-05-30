@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.meta.xr.sdk.all": "67.0.0",
+    "com.meta.xr.sdk.all": "76.0.1",
     "com.neuecc.unirx": "https://github.com/neuecc/UniRx.git?path=Assets/Plugins/UniRx/Scripts",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.cloud.gltfast": "6.12.0",

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MainController : MonoBehaviour {
 
@@ -7,6 +8,7 @@ public class MainController : MonoBehaviour {
     void Start()
     {
         RenderSettings.skybox = skyboxMaterial;
+        //GraphicsSettings.useScriptableRenderPipelineBatching = false;
     }
 }
 

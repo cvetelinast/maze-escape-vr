@@ -20,7 +20,7 @@ public class MazeGenerator : MonoBehaviour {
     [SerializeField] private GameObject itemsContainerPrefab;
     [SerializeField] private Material gpuInstancingMaterial;
 
-    private BasicMazeGenerator mMazeGenerator = null;
+    private Wilson wilson = null;
 
     private List<GameObject> walls = new List<GameObject>();
     private List<GameObject> pillars = new List<GameObject>();
@@ -88,9 +88,10 @@ public class MazeGenerator : MonoBehaviour {
 
     public void GenerateMaze()
     {
-        mMazeGenerator = new RecursiveMazeGenerator(Rows, Columns, false, seed);
+        wilson = new Wilson(Rows, Columns, seed);
 
-        mMazeGenerator.GenerateMaze();
+        wilson.GenerateMaze();
+        wilson.PrintPath();
 
         InstantiateGameObjectsInMaze();
 
@@ -125,25 +126,25 @@ public class MazeGenerator : MonoBehaviour {
             {
                 float x = column * (CellWidth + (AddGaps ? .2f : 0));
                 float z = row * (CellHeight + (AddGaps ? .2f : 0));
-                MazeCell cell = mMazeGenerator.GetMazeCell(row, column);
+                Cell cell = wilson.GetCell(row, column);
 
-                if (cell.WallRight)
+                if (wilson.WallRight(cell))
                 {
                     InstantiateWall(new Vector3(x + CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 90, 0));// right
                 }
-                if (cell.WallFront)
+                if (wilson.WallFront(cell))
                 {
                     InstantiateWall(new Vector3(x, 0, z + CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 0, 0));// front
                 }
-                if (cell.WallLeft)
+                if (wilson.WallLeft(cell))
                 {
                     InstantiateWall(new Vector3(x - CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 270, 0));// left
                 }
-                if (cell.WallBack)
+                if (wilson.WallBack(cell))
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
+                if (cell.IsGoal(Rows, Columns) && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
                 {
                     tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;

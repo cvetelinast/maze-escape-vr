@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class Wilson {
     private int width;
     private int height;
     private readonly Cell[,] grid;
-    private readonly Random random = new Random();
+    private int seed = 0;
+    private System.Random random;
 
-    public Wilson(int width, int height)
+    public Wilson(int width, int height, int seed)
     {
         this.width = width;
         this.height = height;
+        this.seed = seed;
         grid = new Cell[width, height];
-        InitializeGrid();
+        random = new System.Random(seed);
+        InitMaze();
     }
 
-    private void InitializeGrid()
+    private void InitMaze()
     {
         for (int i = 0; i < width; i++)
             for (int j = 0; j < height; j++)
                 grid[i, j] = new Cell(i, j);
     }
 
-    public void Generate()
+    public void GenerateMaze()
     {
         var visited = new HashSet<Cell>();
         var unvisited = grid.Cast<Cell>().ToList();
@@ -38,17 +42,16 @@ public class Wilson {
             var current = unvisited[random.Next(unvisited.Count)];
             var path = new List<Cell> { current };
 
-            // Случайна разходка
             while (unvisited.Contains(current))
             {
-                // Избор на произволен съсед
                 var neighbors = GetNeighbors((x: current.Row, y: current.Col));
                 (int row, int col) = neighbors[random.Next(neighbors.Count)];
 
-                current = new Cell(row, col);
+                // Вземане на клетка от грида вместо създаване на нова
+                current = grid[row, col]; // Основната корекция
+
                 var loopIndex = path.IndexOf(current);
 
-                // Изтриване на цикъл
                 if (loopIndex != -1)
                     path = path.Take(loopIndex + 1).ToList();
                 else
@@ -65,6 +68,18 @@ public class Wilson {
         }
     }
 
+    public void PrintPath()
+    {
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                var cell = grid[j, i];
+                Debug.Log($"Cell ({cell.Row}, {cell.Col}) - Links: {string.Join(", ", cell.Links.Select(c => $"({c.Row}, {c.Col})"))}");
+            }
+        }
+    }
+
     private List<(int x, int y)> GetNeighbors((int x, int y) cell)
     {
         var neighbors = new List<(int x, int y)>();
@@ -76,6 +91,33 @@ public class Wilson {
 
         return neighbors;
     }
+
+    public Cell GetCell(int row, int col)
+    {
+        if (row < 0 || row >= width || col < 0 || col >= height)
+            return null;
+        return grid[row, col];
+    }
+
+    public bool WallRight(Cell cell)
+    {
+        return cell.WallRight && (GetCell(cell.Row, cell.Col + 1)?.WallLeft ?? true);
+    }
+
+    public bool WallFront(Cell cell)
+    {
+        return cell.WallFront && (GetCell(cell.Row + 1, cell.Col)?.WallBack ?? true);
+    }
+
+    public bool WallLeft(Cell cell)
+    {
+        return cell.WallLeft && (GetCell(cell.Row, cell.Col - 1)?.WallRight ?? true);
+    }
+
+    public bool WallBack(Cell cell)
+    {
+        return cell.WallBack && (GetCell(cell.Row - 1, cell.Col)?.WallFront ?? true);
+    }
 }
 
 public class Cell {
@@ -85,9 +127,42 @@ public class Cell {
 
     public Cell(int row, int col) => (Row, Col) = (row, col);
 
+    public override bool Equals(object obj)
+    {
+        return obj is Cell cell &&
+               Row == cell.Row &&
+               Col == cell.Col;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(Row, Col);
+    }
+
     public void Link(Cell cell)
     {
         Links.Add(cell);
         cell.Links.Add(this);
     }
+
+    public bool WallRight {
+        get { return !Links.Any(cell => cell.Row == Row && cell.Col == Col + 1); }
+    }
+
+    public bool WallFront {
+        get { return !Links.Any(cell => cell.Row == Row + 1 && cell.Col == Col); }
+    }
+
+    public bool WallLeft {
+        get { return !Links.Any(cell => cell.Row == Row && cell.Col == Col - 1); }
+    }
+    public bool WallBack {
+        get { return !Links.Any(cell => cell.Row == Row - 1 && cell.Col == Col); }
+    }
+
+    public bool IsGoal(int width, int height)
+    {
+        return (Row == width - 1 && Col == height - 1);
+    }
+
 }
