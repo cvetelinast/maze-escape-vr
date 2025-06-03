@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4806326898326093621}
   - component: {fileID: 4891886148726214349}
   - component: {fileID: 7931161458172094387}
-  - component: {fileID: 7125538279592057191}
+  - component: {fileID: 3451483461109877394}
   m_Layer: 5
   m_Name: SettingsPanel
   m_TagString: Untagged
@@ -98,12 +98,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7125538279592057191
+--- !u!114 &3451483461109877394
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,16 +112,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 39280228316061188}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aaf960227867044282d921171d2d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 0
-  m_CheckFor2DOcclusion: 0
-  m_CheckFor3DOcclusion: 0
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 2
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RaycastTriggerInteraction: 1
+  pointer: {fileID: 0}
+  sortOrder: 0
 --- !u!1 &498671276429792735
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 2844736097451412494}
   - component: {fileID: 2316908023023885411}
   - component: {fileID: 4241727779967823192}
-  - component: {fileID: 3216396734207220346}
+  - component: {fileID: 4090441928810311396}
   - component: {fileID: 1131595332046321998}
   m_Layer: 5
   m_Name: WatchContent
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3216396734207220346
+--- !u!114 &4090441928810311396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -554,16 +554,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 3524013353727653774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7951c64acb0fa62458bf30a60089fe2d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7aaf960227867044282d921171d2d7ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreReversedGraphics: 0
-  m_CheckFor2DOcclusion: 0
-  m_CheckFor3DOcclusion: 0
+  m_BlockingObjects: 2
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RaycastTriggerInteraction: 1
+  pointer: {fileID: 0}
+  sortOrder: 0
 --- !u!114 &1131595332046321998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   mapPanelGO: {fileID: 7157591002878909630}
   closeButtonSettings: {fileID: 7681430223423587384}
   closeButtonMap: {fileID: 4359695163687509257}
-  mapController: {fileID: 0}
+  mapController: {fileID: 7019929822472530195}
 --- !u!1 &4227896467414979695
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,7 +1109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
   mapCameraTransform: {fileID: 0}
-  camera: {fileID: 0}
+  cam: {fileID: 0}
   mapImage: {fileID: 176552265641915306}
   renderTextureRect: {fileID: 5050882047256973911}
 --- !u!1 &7163675299772324277
@@ -1284,6 +1284,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1756,6 +1757,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6370326092680446186, guid: 82592e19db4931840bba7c07424a3b31,
         type: 3}
+      propertyPath: playButton
+      value: 
+      objectReference: {fileID: 1439175277903371413}
+    - target: {fileID: 6370326092680446186, guid: 82592e19db4931840bba7c07424a3b31,
+        type: 3}
       propertyPath: showAllLevelsButton
       value: 0
       objectReference: {fileID: 0}
@@ -1858,6 +1864,18 @@ PrefabInstance:
       addedObject: {fileID: 5895724755699873441}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82592e19db4931840bba7c07424a3b31, type: 3}
+--- !u!114 &1439175277903371413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5574962336186400040, guid: 82592e19db4931840bba7c07424a3b31,
+    type: 3}
+  m_PrefabInstance: {fileID: 6820355286745096637}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &6267480999041881718 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 602449067976488907, guid: 82592e19db4931840bba7c07424a3b31,
