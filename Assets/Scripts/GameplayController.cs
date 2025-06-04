@@ -1,3 +1,4 @@
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,6 +21,8 @@ public class GameplayController : MonoBehaviour {
     [SerializeField] private Transform xrRootTransform;
 
     [SerializeField] private HomeMenuController homeMenuController;
+
+    [SerializeField] private NavMeshSurface surface;
 
     // Start is called before the first frame update
     void Start()
@@ -44,6 +47,8 @@ public class GameplayController : MonoBehaviour {
         audioManager.PlayBackgroundMusic();
 
         mapController.AlignMapToMaze(mazeGenerator.center, mazeGenerator.GetLargestDimension());
+
+        surface.BuildNavMesh();
     }
 
     private void OnPlayerCollideWithFinishLine(GameObject finishGO)
