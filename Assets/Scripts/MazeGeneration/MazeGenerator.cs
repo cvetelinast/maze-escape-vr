@@ -41,28 +41,50 @@ public class MazeGenerator : MonoBehaviour {
     private List<Vector4> pillarColors = new List<Vector4>();
     private bool isGPUInstancingReady = false;
 
+    private List<(int x, int y)> collectItems = new();
+
     public void Initialize()
     {
         int level = Preferences.GetLevel();
+        int collectItemsCount;
         seed = level;
         if (seed <= 5)
         {
             Rows = 5;
             Columns = 5;
+            collectItemsCount = 1;
         }
         else if (seed <= 10)
         {
             Rows = 8;
             Columns = 8;
+            collectItemsCount = 2;
         }
         else
         {
             Rows = 11;
             Columns = 11;
+            collectItemsCount = 3;
         }
 
         colorsGenerator.SetupBaseColor(level);
         itemsContainerPrefab.GetComponent<ItemsController>().Initialize(colorsGenerator.colorScheme);
+        InitCollectItemsPositions(collectItemsCount);
+    }
+
+    // Initializes the positions of collectible items in the maze. The positions are randomly chosen, ensuring that they do not overlap with each other or the finish cell.
+    private void InitCollectItemsPositions(int collectItemsCount)
+    {
+        for (int i = 0; i < collectItemsCount; i++)
+        {
+            int x, y;
+            do
+            {
+                x = Random.Range(0, Columns);
+                y = Random.Range(0, Rows);
+            } while (collectItems.Contains((x, y)) || (x == Columns - 1 && y == Rows - 1)); // Avoid last cell
+            collectItems.Add((x, y));
+        }
     }
 
     public MazeColorScheme GetColorScheme()
@@ -144,7 +166,7 @@ public class MazeGenerator : MonoBehaviour {
                 {
                     InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
-                if (cell.IsGoal(Rows, Columns) && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
+                if (collectItems.Contains((row, column)) && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
                 {
                     tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;

@@ -159,10 +159,4 @@ public class Cell {
     public bool WallBack {
         get { return !Links.Any(cell => cell.Row == Row - 1 && cell.Col == Col); }
     }
-
-    public bool IsGoal(int width, int height)
-    {
-        return (Row == width - 1 && Col == height - 1);
-    }
-
 }
