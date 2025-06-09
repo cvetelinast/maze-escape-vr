@@ -1487,6 +1487,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 25012266756188467, guid: f2b91a0a0da99fb49b789021b42b7658,
+        type: 3}
+      propertyPath: _arcPointsCount
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 25012266756188467, guid: f2b91a0a0da99fb49b789021b42b7658,
+        type: 3}
+      propertyPath: _gravityModifier
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 692874311729869154, guid: f2b91a0a0da99fb49b789021b42b7658,
         type: 3}
       propertyPath: m_Name
