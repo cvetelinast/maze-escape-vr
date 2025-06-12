@@ -5,7 +5,17 @@ Maze Escape VR is a virtual reality game where the player must find the exit of 
 ---
 
 ## Preview
-![Maze Escape VR Screenshot](Documents/Screenshots/com.oculus.vrshell-20250612-162522.jpg
+<p align="center" width="100%">
+    <img width="100%" src="Documents/Screenshots/com.oculus.vrshell-20250612-162522.jpg"> 
+    <figcaption>The Menu scene</figcaption>
+</p>
+
+---
+
+<p align="center" width="100%">
+    <img width="100%" src="Documents/Screenshots/com.oculus.vrshell-20250106-201444.jpg"> 
+    <figcaption>The Game scene</figcaption>
+</p>
 
 ---
 
@@ -24,6 +34,7 @@ Maze Escape VR is a virtual reality game where the player must find the exit of 
 
 - VR headset
 - Compatible VR-ready PC
+- Unity 6 installed
 - Tested with Meta Quest 2 device
 
 **Installation**
@@ -34,7 +45,7 @@ Maze Escape VR is a virtual reality game where the player must find the exit of 
 git clone https://github.com/cvetelinast/maze-escape-vr.git
 ```
 
-2. Open the project in your preferred VR development environment (e.g., Unity).
+2. Open the project in Unity 6.
 3. Build and run the project on your VR headset.
 
 ---
