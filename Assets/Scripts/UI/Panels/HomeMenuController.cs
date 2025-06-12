@@ -38,6 +38,11 @@ public class HomeMenuController : MonoBehaviour {
         LoadPreferences();
     }
 
+    private void OnEnable()
+    {
+        LoadPreferences();
+    }
+
     private void OnDestroy()
     {
         playButton?.onClick.RemoveAllListeners();

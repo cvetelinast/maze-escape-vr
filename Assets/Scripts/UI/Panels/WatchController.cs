@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -71,7 +70,7 @@ public class WatchController : MonoBehaviour {
 
     private void ToggleShowMapPanel(bool shouldShow, GameObject panelGO)
     {
-        if (shouldShow && Preferences.GetCoins() <= 0)
+        if (shouldShow && Preferences.GetCoins() <= 2)
         {
             Debug.LogWarning("Not enough coins to show map panel.");
             return;
@@ -80,7 +79,7 @@ public class WatchController : MonoBehaviour {
         if (shouldShow)
         {
             int coinCount = Preferences.GetCoins();
-            int newCoinCount = coinCount - 1;
+            int newCoinCount = coinCount - 3;
             Preferences.SetCoins(newCoinCount);
 
             // Start timer
