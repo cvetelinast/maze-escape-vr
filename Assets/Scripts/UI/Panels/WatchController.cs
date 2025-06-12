@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,13 +19,15 @@ public class WatchController : MonoBehaviour {
 
     [SerializeField] private MapController mapController;
 
+    private IEnumerator mapPanelTimerCoroutine;
+
     private void Start()
     {
         settingsButton.onClick.AddListener(() => OnButtonClicked(true));
         mapButton.onClick.AddListener(() => OnButtonClicked(false));
 
-        ToggleShowPanel(false, mapPanelGO);
-        ToggleShowPanel(false, settingsPanelGO);
+        ToggleShowMapPanel(false, mapPanelGO);
+        ToggleShowSettingsPanel(false, settingsPanelGO);
 
         closeButtonSettings.onClick.AddListener(() => OnCloseButtonClicked(true));
         closeButtonMap.onClick.AddListener(() => OnCloseButtonClicked(false));
@@ -42,22 +46,22 @@ public class WatchController : MonoBehaviour {
         if (isSettingsPanel)
         {
             bool newVisibility = !settingsPanelGO.activeSelf;
-            ToggleShowPanel(false, mapPanelGO);
-            ToggleShowPanel(newVisibility, settingsPanelGO);
+            ToggleShowSettingsPanel(newVisibility, settingsPanelGO);
+            ToggleShowMapPanel(false, mapPanelGO);
 
             mapController.HideMap();
         }
         else
         {
             bool newVisibility = !mapPanelGO.activeSelf;
-            ToggleShowPanel(false, settingsPanelGO);
-            ToggleShowPanel(newVisibility, mapPanelGO);
+            ToggleShowSettingsPanel(false, settingsPanelGO);
+            ToggleShowMapPanel(newVisibility, mapPanelGO);
 
             mapController.ShowMap();
         }
     }
 
-    private void ToggleShowPanel(bool shouldShow, GameObject panelGO)
+    private void ToggleShowSettingsPanel(bool shouldShow, GameObject panelGO)
     {
         if (panelGO.activeSelf != shouldShow)
         {
@@ -65,15 +69,59 @@ public class WatchController : MonoBehaviour {
         }
     }
 
+    private void ToggleShowMapPanel(bool shouldShow, GameObject panelGO)
+    {
+        if (shouldShow && Preferences.GetCoins() <= 0)
+        {
+            Debug.LogWarning("Not enough coins to show map panel.");
+            return;
+        }
+
+        if (shouldShow)
+        {
+            int coinCount = Preferences.GetCoins();
+            int newCoinCount = coinCount - 1;
+            Preferences.SetCoins(newCoinCount);
+
+            // Start timer
+            if (mapPanelTimerCoroutine != null)
+            {
+                StopCoroutine(mapPanelTimerCoroutine);
+            }
+            mapPanelTimerCoroutine = MapPanelTimerCoroutine();
+            StartCoroutine(mapPanelTimerCoroutine);
+        }
+        else
+        {
+            // Stop timer if hiding
+            if (mapPanelTimerCoroutine != null)
+            {
+                StopCoroutine(mapPanelTimerCoroutine);
+                mapPanelTimerCoroutine = null;
+            }
+        }
+
+        if (panelGO.activeSelf != shouldShow)
+        {
+            panelGO.SetActive(shouldShow);
+        }
+    }
+
+    private IEnumerator MapPanelTimerCoroutine()
+    {
+        yield return new WaitForSeconds(15f);
+        ToggleShowMapPanel(false, mapPanelGO);
+    }
+
     private void OnCloseButtonClicked(bool isSettingsPanel)
     {
         if (isSettingsPanel)
         {
-            ToggleShowPanel(false, settingsPanelGO);
+            ToggleShowSettingsPanel(false, settingsPanelGO);
         }
         else
         {
-            ToggleShowPanel(false, mapPanelGO);
+            ToggleShowMapPanel(false, mapPanelGO);
         }
     }
 }

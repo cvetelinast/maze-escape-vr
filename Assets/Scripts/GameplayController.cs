@@ -1,3 +1,4 @@
+using System;
 using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -62,7 +63,8 @@ public class GameplayController : MonoBehaviour {
 
         if (levelIndex == maxUnlockedLevel)
         {
-            Preferences.SetMaxUnlockedLevel(maxUnlockedLevel + 1);
+            int maxLevel = Math.Min(maxUnlockedLevel + 1, Constants.MAX_LEVEL);
+            Preferences.SetMaxUnlockedLevel(maxLevel);
         }
 
         SceneManager.LoadScene(Constants.MENU_SCENE);

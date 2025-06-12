@@ -14,4 +14,6 @@ public class Constants {
     public static readonly Color BASE_BLUE_COLOR = new Color(0.0f, 0.95f, 0.95f);
     public static readonly Color BASE_GREEN_COLOR = new Color(0.4f, 0.95f, 0.3f);
     public static readonly Color BASE_BLACK_COLOR = new Color(0.0f, 0.0f, 0.0f);
+
+    public static readonly int MAX_LEVEL = 15;
 }

@@ -20,7 +20,7 @@ public class Preferences {
     }
 
     public static int GetMaxUnlockedLevel() =>
-         PlayerPrefs.GetInt(MAX_UNLOCKED_LEVEL_PREFS_KEY, 1);
+         PlayerPrefs.GetInt(MAX_UNLOCKED_LEVEL_PREFS_KEY, 13);
 
     public static void SetCoins(int coins)
     {
@@ -28,5 +28,5 @@ public class Preferences {
     }
 
     public static int GetCoins() =>
-         PlayerPrefs.GetInt(COINS_PREFS_KEY, 0);
+         PlayerPrefs.GetInt(COINS_PREFS_KEY, 10);
 }
