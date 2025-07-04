@@ -94,18 +94,21 @@ public class MazeGenerator : MonoBehaviour {
 
     public void SetupFloor(Transform floorCubeTransform)
     {
-        float x = Columns * (CellWidth + (AddGaps ? .2f : 0));
-        float z = Rows * (CellHeight + (AddGaps ? .2f : 0));
-
-        floorCubeTransform.localScale = new Vector3(x, 1, z);
-        center = new Vector3((x - CellWidth) / 2, 0f, (z - CellHeight) / 2);
+        Vector2 size = GetMazeSize();
+        floorCubeTransform.localScale = new Vector3(size.x, 1, size.y);
+        center = new Vector3(size.x / 2.0f, 0f, size.y / 2.0f);
         floorCubeTransform.position = new Vector3(center.x, -0.5f, center.z);
         SetupFloorColor(floorCubeTransform);
     }
 
-    public float GetLargestDimension()
+    public Vector3 GetInitialPosition()
     {
-        return Mathf.Max(Rows * CellHeight, Columns * CellWidth);
+        return new Vector3(CellWidth / 2.0f, 0, CellHeight / 2.0f);
+    }
+
+    public Vector2 GetMazeSize()
+    {
+        return new Vector2(Rows * (CellHeight + (AddGaps ? .2f : 0)), Columns * (CellWidth + (AddGaps ? .2f : 0)));
     }
 
     public void GenerateMaze()
@@ -152,23 +155,23 @@ public class MazeGenerator : MonoBehaviour {
 
                 if (wilson.WallRight(cell))
                 {
-                    InstantiateWall(new Vector3(x + CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 90, 0));// right
+                    InstantiateWall(new Vector3(x + CellWidth, 0, z + CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 90, 0));// right
                 }
                 if (wilson.WallFront(cell))
                 {
-                    InstantiateWall(new Vector3(x, 0, z + CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 0, 0));// front
+                    InstantiateWall(new Vector3(x + CellWidth / 2, 0, z + CellHeight) + Wall.transform.position, Quaternion.Euler(0, 0, 0));// front
                 }
                 if (wilson.WallLeft(cell))
                 {
-                    InstantiateWall(new Vector3(x - CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 270, 0));// left
+                    InstantiateWall(new Vector3(x, 0, z + CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 270, 0));// left
                 }
                 if (wilson.WallBack(cell))
                 {
-                    InstantiateWall(new Vector3(x, 0, z - CellHeight / 2) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
+                    InstantiateWall(new Vector3(x + CellWidth / 2, 0, z) + Wall.transform.position, Quaternion.Euler(0, 180, 0));// back
                 }
                 if (collectItems.Contains((row, column)) && itemsContainerPrefab != null && (row != Rows - 1 || column != Columns - 1))
                 {
-                    tmp = Instantiate(itemsContainerPrefab, new Vector3(x, 1, z), Quaternion.Euler(0, 0, 0));
+                    tmp = Instantiate(itemsContainerPrefab, new Vector3(x + CellWidth / 2, 1, z + CellHeight / 2), Quaternion.Euler(0, 0, 0));
                     tmp.transform.parent = transform;
                 }
             }
@@ -182,7 +185,7 @@ public class MazeGenerator : MonoBehaviour {
                     float x = column * (CellWidth + (AddGaps ? .2f : 0));
                     float z = row * (CellHeight + (AddGaps ? .2f : 0));
 
-                    InstantiatePillar(new Vector3(x - CellWidth / 2, 0, z - CellHeight / 2));
+                    InstantiatePillar(new Vector3(x, 0, z));
                 }
             }
         }

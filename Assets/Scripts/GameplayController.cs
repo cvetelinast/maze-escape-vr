@@ -28,8 +28,6 @@ public class GameplayController : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform.position = new Vector3(0f, 0f, 0f);
-        playerTransform.rotation = Quaternion.Euler(0f, 45f, 0f);
 
 #if UNITY_EDITOR
         xrRootTransform.rotation = Quaternion.identity;
@@ -41,13 +39,17 @@ public class GameplayController : MonoBehaviour {
 
         skyboxController.SetupSkybox(mazeGenerator.GetColorScheme());
 
+        playerTransform.position = mazeGenerator.GetInitialPosition();
+        playerTransform.rotation = Quaternion.Euler(0f, 45f, 0f);
+
         playerCollideController.OnPlayerCollideWithFinishLine += OnPlayerCollideWithFinishLine;
         playerCollideController.OnPlayerCollideWithCoin += OnPlayerCollideWithCoin;
 
         audioManager.SetupBackgroundAudioResource(mazeGenerator.GetColorScheme());
         audioManager.PlayBackgroundMusic();
 
-        mapController.AlignMapToMaze(mazeGenerator.center, mazeGenerator.GetLargestDimension());
+        Vector2 mazeSize = mazeGenerator.GetMazeSize();
+        mapController.AlignMapToMaze(mazeSize.x, 2f, 1f);
 
         surface.BuildNavMesh();
     }

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MapController : MonoBehaviour {
@@ -31,9 +31,39 @@ public class MapController : MonoBehaviour {
         }
     }
 
-    public void AlignMapToMaze(Vector3 position, float height)
+    /// <summary>
+    /// Методът AlignMapToMaze позиционира камерата на картата спрямо лабиринта, така че да се вижда отгоре
+    /// param N - размерът на лабиринта (N x N).
+    /// param mazeHeight - височината на лабиринта, която ще се използва за позициониране на камерата
+    /// param mazeBaseThickness - дебелината на основата на лабиринта, потъваща под координатната равнина XZ
+    public void AlignMapToMaze(float N, float mazeHeight, float mazeBaseThickness)
     {
-        cam.transform.position = new Vector3(position.x, height, position.z);
+        float h = Mathf.Sqrt(3f) * (N + 2f) / 2f;
+
+        // Позиция - тъй като лабиринтът се издига на определена височина, а целта ни е да го
+        // виждаме отгоре, добавяме към височината стойността на mazeHeight.
+        // В противен случай бихме виждали само основата на лабиринта.
+        Vector3 position = new Vector3(N / 2f, h + mazeHeight, N / 2f);
+
+        // Пресметнатата матрица на ротация
+        Matrix4x4 rotationMatrix = new Matrix4x4
+        {
+            m00 = 0f, m01 = 0f, m02 = -1f, m03 = 0f,
+            m10 = -1f, m11 = 0f, m12 = 0f, m13 = 0f,
+            m20 = 0f, m21 = 1f, m22 = 0f, m23 = 0f,
+            m30 = 0f, m31 = 0f, m32 = 0f, m33 = 1f
+        };
+
+        Quaternion currentCameraRotation = cam.transform.rotation;
+        Quaternion newRotation = rotationMatrix.rotation;
+
+        // Задаване на позиция и ротация. Ротациите в Unity се задават чрез кватерниори и са абсолютни,
+        // така че трябва да комбинираме текущата ротация с новата.
+        cam.transform.SetPositionAndRotation(position, newRotation * currentCameraRotation);
+
+        // Задаване на FOV
+        cam.fieldOfView = 60f;
+        cam.farClipPlane = h + mazeHeight + mazeBaseThickness;
     }
 
     public void ShowMap()
